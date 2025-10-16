@@ -1,0 +1,1970 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kronika Nusantara - Era Reformasi Indonesia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset dan Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1a5276;
+            --secondary-color: #2e86c1;
+            --accent-color: #e74c3c;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --democracy-color: #3498db;
+            --freedom-color: #9b59b6;
+            --text-color: #333;
+            --light-bg: #f5f7fa;
+            --dark-bg: #1a2530;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a5276, #2e86c1);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        /* Screen Base Styles */
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2874a6;
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            background: linear-gradient(135deg, #1a5276, #2e86c1);
+            color: white;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .loading-content {
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .loading-logo i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--democracy-color);
+        }
+
+        .loading-logo h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .loading-logo p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+
+        .loading-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .loading-progress {
+            height: 100%;
+            background: var(--democracy-color);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 5px;
+        }
+
+        .loading-tips p {
+            font-style: italic;
+            opacity: 0.7;
+        }
+
+        /* Main Menu */
+        .main-menu {
+            background: linear-gradient(135deg, #1a5276, #2e86c1);
+            color: white;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .menu-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .game-logo {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .game-logo i {
+            font-size: 4rem;
+            color: var(--democracy-color);
+            margin-bottom: 1rem;
+        }
+
+        .game-logo h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .game-logo p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        .player-info {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .player-avatar {
+            width: 60px;
+            height: 60px;
+            background: var(--democracy-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+
+        .player-avatar i {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .player-details h3 {
+            margin-bottom: 0.25rem;
+        }
+
+        .menu-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .menu-btn {
+            padding: 1.2rem 1.5rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        .menu-btn.primary {
+            background: var(--democracy-color);
+            color: white;
+        }
+
+        .menu-btn.primary:hover {
+            background: #2874a6;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .menu-btn.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+
+        .menu-btn.secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .player-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-item i {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            color: var(--democracy-color);
+        }
+
+        .stat-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Screen Header */
+        .screen-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .screen-header h1 {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .header-stats {
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        /* Quiz Screen */
+        .quiz-screen {
+            background: var(--light-bg);
+            color: var(--text-color);
+        }
+
+        .quiz-container {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .quiz-progress {
+            margin-bottom: 2rem;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+
+        .quiz-content {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .question-section {
+            margin-bottom: 2rem;
+        }
+
+        .question-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .option-btn {
+            padding: 1rem;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: left;
+            font-size: 1rem;
+        }
+
+        .option-btn:hover {
+            background: #e9ecef;
+            border-color: #ced4da;
+        }
+
+        .option-btn.selected {
+            background: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+
+        .option-btn.correct {
+            background: var(--success-color);
+            color: white;
+            border-color: var(--success-color);
+        }
+
+        .option-btn.incorrect {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        .quiz-feedback {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            background: #f8f9fa;
+            display: none;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+        }
+
+        .feedback-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .quiz-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .action-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        .action-btn.primary {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .action-btn.primary:hover:not(:disabled) {
+            background: #2980b9;
+        }
+
+        .action-btn.secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .action-btn.secondary:hover:not(:disabled) {
+            background: #5a6268;
+        }
+
+        .action-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Quiz Results Screen */
+        .quiz-results {
+            background: linear-gradient(135deg, #1a5276, #2e86c1);
+            color: white;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .results-container {
+            max-width: 600px;
+            width: 90%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .results-header {
+            margin-bottom: 2rem;
+        }
+
+        .results-icon {
+            font-size: 4rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .results-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .results-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        .results-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .result-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+        }
+
+        .result-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+        }
+
+        .result-icon.correct {
+            background: var(--success-color);
+        }
+
+        .result-icon.wrong {
+            background: var(--accent-color);
+        }
+
+        .result-icon.score {
+            background: var(--warning-color);
+        }
+
+        .result-number {
+            display: block;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+
+        .result-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .results-performance {
+            margin-bottom: 2rem;
+        }
+
+        .performance-rating {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .results-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        /* Archive Screen */
+        .archive-screen {
+            background: var(--light-bg);
+            color: var(--text-color);
+        }
+
+        .archive-content {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .archive-nav {
+            width: 250px;
+            background: var(--card-bg);
+            border-right: 1px solid #e0e0e0;
+            padding: 1.5rem 0;
+            overflow-y: auto;
+        }
+
+        .nav-section {
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: var(--transition);
+        }
+
+        .nav-section:hover {
+            background: #f8f9fa;
+        }
+
+        .nav-section.active {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .archive-display {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .archive-section {
+            display: none;
+        }
+
+        .archive-section.active {
+            display: block;
+        }
+
+        .archive-section h2 {
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        /* Notification System */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 1rem 1.5rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 1000;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification-icon {
+            font-size: 1.2rem;
+        }
+
+        .notification.success .notification-icon {
+            color: var(--success-color);
+        }
+
+        .notification.error .notification-icon {
+            color: var(--accent-color);
+        }
+
+        .notification.warning .notification-icon {
+            color: var(--warning-color);
+        }
+
+        .notification.info .notification-icon {
+            color: var(--secondary-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .archive-content {
+                flex-direction: column;
+            }
+            
+            .archive-nav {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #e0e0e0;
+                display: flex;
+                overflow-x: auto;
+                padding: 1rem;
+            }
+            
+            .nav-section {
+                flex-shrink: 0;
+                padding: 0.75rem 1rem;
+            }
+            
+            .results-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .results-actions {
+                flex-direction: column;
+            }
+            
+            .menu-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .player-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Archive Content Styles */
+        .archive-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .archive-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .archive-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--democracy-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .archive-card p {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .key-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .key-point {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .key-point i {
+            font-size: 1.5rem;
+            color: var(--democracy-color);
+            margin-top: 0.25rem;
+        }
+
+        .key-point h4 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .key-point p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin: 0;
+        }
+
+        .timeline-events {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .timeline-event {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .timeline-event h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-event .date {
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .figure-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .figure-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .figure-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .figure-avatar {
+            width: 60px;
+            height: 60px;
+            background: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .figure-info h4 {
+            margin-bottom: 0.25rem;
+            color: var(--primary-color);
+        }
+
+        .figure-role {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .figure-details {
+            line-height: 1.6;
+        }
+
+        .figure-details h5 {
+            margin: 1rem 0 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .program-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .program-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .program-list li:last-child {
+            border-bottom: none;
+        }
+
+        .program-list li i {
+            color: var(--success-color);
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen... -->
+    <div id="loadingScreen" class="screen loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <i class="fas fa-democrat"></i>
+                <h1>Kronika Nusantara</h1>
+                <p>Memuat Sejarah Reformasi Indonesia...</p>
+            </div>
+            <div class="loading-bar">
+                <div class="loading-progress" id="loadingProgress"></div>
+            </div>
+            <div class="loading-tips">
+                <p id="loadingTip">Menyiapkan arsip reformasi...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Menu -->
+    <div id="mainMenu" class="screen main-menu hidden">
+        <div class="menu-container">
+            <div class="game-logo">
+                <i class="fas fa-vote-yea"></i>
+                <h1>Kronika Reformasi</h1>
+                <p>Petualangan Edukasi Sejarah Reformasi Indonesia</p>
+            </div>
+            
+            <div class="player-info">
+                <div class="player-avatar">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="player-details">
+                    <h3 id="playerName">Pemuda Reformasi</h3>
+                    <p>Level: <span id="playerLevel">1</span> | XP: <span id="playerXP">0</span></p>
+                </div>
+            </div>
+            
+            <div class="menu-buttons">
+                <button id="startQuiz" class="menu-btn primary">
+                    <i class="fas fa-play"></i> Mulai Kuis Reformasi
+                </button>
+                <button id="archiveBtn" class="menu-btn secondary">
+                    <i class="fas fa-library"></i> Buka Perpustakaan Reformasi
+                </button>
+            </div>
+
+            <div class="player-stats">
+                <div class="stat-item">
+                    <i class="fas fa-medal"></i>
+                    <div class="stat-info">
+                        <span class="stat-value" id="completedPeriods">0</span>
+                        <span class="stat-label">Kuis Diselesaikan</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-bookmark"></i>
+                    <div class="stat-info">
+                        <span class="stat-value" id="collectedDocuments">0</span>
+                        <span class="stat-label">Dokumen Dikumpulkan</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-trophy"></i>
+                    <div class="stat-info">
+                        <span class="stat-value" id="achievementsCount">0</span>
+                        <span class="stat-label">Pencapaian</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div id="quizScreen" class="screen quiz-screen hidden">
+        <div class="screen-header">
+            <button class="back-btn" id="backFromQuiz">
+                <i class="fas fa-arrow-left"></i> Kembali ke Menu
+            </button>
+            <h1>Kuis Era Reformasi</h1>
+            <div class="header-stats">
+                <span>Soal: <strong id="currentQuestionNumber">1</strong>/15</span>
+            </div>
+        </div>
+
+        <div class="quiz-container">
+            <div class="quiz-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="quizProgress" style="width: 6.67%"></div>
+                </div>
+            </div>
+
+            <div class="quiz-content">
+                <div class="question-section">
+                    <h2 id="questionText">Pertanyaan akan muncul di sini</h2>
+                </div>
+
+                <div class="options-section">
+                    <div class="options-grid" id="optionsGrid">
+                        <!-- Opsi jawaban akan dimuat di sini -->
+                    </div>
+                </div>
+
+                <div class="quiz-feedback" id="quizFeedback">
+                    <div class="feedback-content" id="feedbackContent">
+                        <!-- Feedback akan muncul di sini -->
+                    </div>
+                </div>
+
+                <div class="quiz-actions">
+                    <button class="action-btn secondary" id="skipQuestion">
+                        <i class="fas fa-forward"></i> Lewati Soal
+                    </button>
+                    <button class="action-btn primary" id="nextQuestion" disabled>
+                        <i class="fas fa-arrow-right"></i> Soal Berikutnya
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quiz Results Screen -->
+    <div id="quizResultsScreen" class="screen quiz-results hidden">
+        <div class="results-container">
+            <div class="results-header">
+                <i class="fas fa-trophy results-icon"></i>
+                <h1>Hasil Kuis Reformasi</h1>
+                <p class="results-subtitle">Selamat! Anda telah menyelesaikan kuis era reformasi</p>
+            </div>
+
+            <div class="results-stats">
+                <div class="result-card">
+                    <div class="result-icon correct">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="result-info">
+                        <span class="result-number" id="correctAnswers">0</span>
+                        <span class="result-label">Jawaban Benar</span>
+                    </div>
+                </div>
+                <div class="result-card">
+                    <div class="result-icon wrong">
+                        <i class="fas fa-times"></i>
+                    </div>
+                    <div class="result-info">
+                        <span class="result-number" id="wrongAnswers">0</span>
+                        <span class="result-label">Jawaban Salah</span>
+                    </div>
+                </div>
+                <div class="result-card">
+                    <div class="result-icon score">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="result-info">
+                        <span class="result-number" id="quizScore">0</span>
+                        <span class="result-label">Total Skor</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-performance">
+                <h3>Penilaian</h3>
+                <div class="performance-rating" id="performanceRating">
+                    <!-- Rating akan dimuat di sini -->
+                </div>
+            </div>
+
+            <div class="results-actions">
+                <button class="action-btn secondary" id="reviewQuiz">
+                    <i class="fas fa-book"></i> Pelajari Materi
+                </button>
+                <button class="action-btn primary" id="retryQuiz">
+                    <i class="fas fa-redo"></i> Coba Lagi
+                </button>
+                <button class="action-btn primary" id="continueAfterQuiz">
+                    <i class="fas fa-home"></i> Kembali ke Menu
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Archive Screen -->
+    <div id="archiveScreen" class="screen archive-screen hidden">
+        <div class="screen-header">
+            <button class="back-btn" id="backFromArchive">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </button>
+            <h1>Perpustakaan Reformasi Digital</h1>
+            <div class="header-stats">
+                <span>Total Dokumen: <strong id="totalDocuments">0</strong>/48</span>
+            </div>
+        </div>
+
+        <div class="archive-content">
+            <div class="archive-nav">
+                <div class="nav-section active" data-section="overview">
+                    <i class="fas fa-home"></i>
+                    <span>Gambaran Umum</span>
+                </div>
+                <div class="nav-section" data-section="timeline">
+                    <i class="fas fa-stream"></i>
+                    <span>Timeline Lengkap</span>
+                </div>
+                <div class="nav-section" data-section="figures">
+                    <i class="fas fa-users"></i>
+                    <span>Tokoh Reformasi</span>
+                </div>
+                <div class="nav-section" data-section="documents">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Dokumen Penting</span>
+                </div>
+            </div>
+
+            <div class="archive-display">
+                <div class="archive-section active" id="overviewSection">
+                    <h2>Era Reformasi Indonesia</h2>
+                    <div class="archive-card">
+                        <h3>Pengantar Era Reformasi</h3>
+                        <p>Era Reformasi di Indonesia dimulai pada tahun 1998, tepatnya setelah jatuhnya pemerintahan Orde Baru di bawah kepemimpinan Presiden Soeharto. Periode ini menandai transisi Indonesia menuju demokrasi yang lebih terbuka dan sistem politik yang lebih demokratis.</p>
+                        
+                        <p>Reformasi 1998 merupakan gerakan sosial politik yang menuntut perubahan mendasar dalam sistem pemerintahan Indonesia. Gerakan ini dipicu oleh krisis moneter Asia 1997 yang berdampak parah pada perekonomian Indonesia, serta ketidakpuasan masyarakat terhadap praktik KKN (Korupsi, Kolusi, dan Nepotisme) yang merajalela selama Orde Baru.</p>
+                        
+                        <div class="key-points">
+                            <div class="key-point">
+                                <i class="fas fa-calendar-day"></i>
+                                <div>
+                                    <h4>Dimulai: 21 Mei 1998</h4>
+                                    <p>Pengunduran diri Presiden Soeharto setelah 32 tahun berkuasa menandai awal era reformasi</p>
+                                </div>
+                            </div>
+                            <div class="key-point">
+                                <i class="fas fa-balance-scale"></i>
+                                <div>
+                                    <h4>Transisi Demokrasi</h4>
+                                    <p>Perubahan sistem politik dari otoriter ke demokratis dengan pemilu multipartai</p>
+                                </div>
+                            </div>
+                            <div class="key-point">
+                                <i class="fas fa-gavel"></i>
+                                <div>
+                                    <h4>Amandemen UUD 1945</h4>
+                                    <p>Perubahan konstitusi dalam empat tahap (1999-2002) untuk memperkuat demokrasi</p>
+                                </div>
+                            </div>
+                            <div class="key-point">
+                                <i class="fas fa-newspaper"></i>
+                                <div>
+                                    <h4>Kebebasan Pers</h4>
+                                    <p>Pencabutan SIUPP dan kemunculan media massa independen</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="archive-card">
+                        <h3>Pencapaian Utama Reformasi</h3>
+                        <p>Selama lebih dari dua dekade, era reformasi telah membawa berbagai perubahan signifikan dalam kehidupan berbangsa dan bernegara di Indonesia:</p>
+                        
+                        <div class="key-points">
+                            <div class="key-point">
+                                <i class="fas fa-vote-yea"></i>
+                                <div>
+                                    <h4>Demokratisasi</h4>
+                                    <p>Pemilihan umum yang bebas, langsung, dan rahasia sejak 1999</p>
+                                </div>
+                            </div>
+                            <div class="key-point">
+                                <i class="fas fa-landmark"></i>
+                                <div>
+                                    <h4>Desentralisasi</h4>
+                                    <p>Otonomi daerah dan pembentukan daerah otonom baru</p>
+                                </div>
+                            </div>
+                            <div class="key-point">
+                                <i class="fas fa-shield-alt"></i>
+                                <div>
+                                    <h4>Reformasi Hukum</h4>
+                                    <p>Pembentukan lembaga penegak hukum independen seperti KPK</p>
+                                </div>
+                            </div>
+                            <div class="key-point">
+                                <i class="fas fa-peace"></i>
+                                <div>
+                                    <h4>Penyelesaian Konflik</h4>
+                                    <p>Perdamaian Aceh dan resolusi konflik di berbagai daerah</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="archive-section" id="timelineSection">
+                    <h2>Timeline Lengkap Reformasi Indonesia</h2>
+                    
+                    <div class="archive-card">
+                        <h3>1998 - Tahun Transisi</h3>
+                        <div class="timeline-events">
+                            <div class="timeline-event">
+                                <h4>Krisis Moneter</h4>
+                                <div class="date">Januari 1998</div>
+                                <p>Nilai rupiah merosot hingga Rp 16,000 per USD, memicu krisis ekonomi terparah dalam sejarah Indonesia</p>
+                            </div>
+                            <div class="timeline-event">
+                                <h4>Tragedi Trisakti</h4>
+                                <div class="date">12 Mei 1998</div>
+                                <p>Penembakan mahasiswa Universitas Trisakti oleh aparat keamanan yang menewaskan 4 mahasiswa</p>
+                            </div>
+                            <div class="timeline-event">
+                                <h4>Kerusuhan Mei 1998</h4>
+                                <div class="date">13-15 Mei 1998</div>
+                                <p>Kerusuhan massal di Jakarta dan beberapa kota besar yang menewaskan ratusan orang dan menghancurkan properti</p>
+                            </div>
+                            <div class="timeline-event">
+                                <h4>Lengsernya Soeharto</h4>
+                                <div class="date">21 Mei 1998</div>
+                                <p>Presiden Soeharto mengundurkan diri setelah 32 tahun berkuasa, digantikan oleh B.J. Habibie</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="archive-card">
+                        <h3>1999-2001 - Konsolidasi Demokrasi</h3>
+                        <div class="timeline-events">
+                            <div class="timeline-event">
+                                <h4>Pemilu Demokratis Pertama</h4>
+                                <div class="date">7 Juni 1999</div>
+                                <p>Pemilihan umum multipartai pertama sejak 1955 dengan 48 partai peserta</p>
+                            </div>
+                            <div class="timeline-event">
+                                <h4>Referendum Timor Timur</h4>
+                                <div class="date">30 Agustus 1999</div>
+                                <p>Pemilihan menentukan kemerdekaan Timor Timur dari Indonesia</p>
+                            </div>
+                            <div class="timeline-event">
+                                <h4>Presiden Abdurrahman Wahid</h4>
+                                <div class="date">20 Oktober 1999</div>
+                                <p>Gus Dur terpilih sebagai presiden ke-4 Indonesia melalui pemilihan di MPR</p>
+                            </div>
+                            <div class="timeline-event">
+                                <h4>Pemberantasan KKN</h4>
+                                <div class="date">2000-2001</div>
+                                <p>Berbagai investigasi korupsi terhadap mantan pejabat Orde Baru</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="archive-card">
+                        <h3>2002-2004 - Reformasi Institusi</h3>
+                        <div class="timeline-events">
+                            <div class="timeline-event">
+                                <h4>Pembentukan KPK</h4>
+                                <div class="date">27 Desember 2002</div>
+                                <p>Komisi Pemberantasan Korupsi (KPK) dibentuk melalui UU No. 30 Tahun 2002</p>
+                            </div>
+                            <div class="timeline-event">
+                                <h4>Pemilu Langsung Pertama</h4>
+                                <div class="date">5 Juli 2004</div>
+                                <p>Pemilihan presiden dan wakil presiden secara langsung pertama kali dalam sejarah Indonesia</p>
+                            </div>
+                            <div class="timeline-event">
+                                <h4>Tsunami Aceh</h4>
+                                <div class="date">26 Desember 2004</div>
+                                <p>Bencana tsunami yang memicu proses perdamaian di Aceh</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="archive-section" id="figuresSection">
+                    <h2>Tokoh-Tokoh Penting Era Reformasi</h2>
+                    <div class="figure-grid" id="figuresGrid">
+                        <!-- Tokoh-tokoh reformasi akan dimuat di sini -->
+                    </div>
+                </div>
+
+                <div class="archive-section" id="documentsSection">
+                    <h2>Dokumen Penting Reformasi</h2>
+                    <div class="archive-card">
+                        <h3>Dokumen Bersejarah</h3>
+                        <p>Berikut adalah dokumen-dokumen penting yang menjadi landasan hukum dan politik era reformasi:</p>
+                        
+                        <div class="key-points">
+                            <div class="key-point">
+                                <i class="fas fa-file-contract"></i>
+                                <div>
+                                    <h4>Tap MPR No. X/MPR/1998</h4>
+                                    <p>Pokok-pokok Reformasi Pembangunan dalam rangka penyelamatan dan normalisasi kehidupan nasional</p>
+                                </div>
+                            </div>
+                            <div class="key-point">
+                                <i class="fas fa-file-contract"></i>
+                                <div>
+                                    <h4>UU No. 2 Tahun 1999</h4>
+                                    <p>Undang-Undang tentang Partai Politik yang membuka ruang demokrasi multipartai</p>
+                                </div>
+                            </div>
+                            <div class="key-point">
+                                <i class="fas fa-file-contract"></i>
+                                <div>
+                                    <h4>UU No. 3 Tahun 1999</h4>
+                                    <p>Undang-Undang tentang Pemilihan Umum yang mengatur pemilu demokratis</p>
+                                </div>
+                            </div>
+                            <div class="key-point">
+                                <i class="fas fa-file-contract"></i>
+                                <div>
+                                    <h4>UU No. 22 Tahun 1999</h4>
+                                    <p>Undang-Undang tentang Pemerintahan Daerah yang memberikan otonomi luas</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification System -->
+    <div id="notification" class="notification hidden">
+        <div class="notification-content">
+            <i class="notification-icon" id="notificationIcon"></i>
+            <span class="notification-text" id="notificationText"></span>
+        </div>
+    </div>
+
+    <script>
+        // Game State Management - Fokus Reformasi
+        const gameState = {
+            player: {
+                name: "Pemuda Reformasi",
+                level: 1,
+                xp: 0,
+                historyPoints: 0,
+                completedPeriods: 0,
+                collectedDocuments: 0,
+                achievementsCount: 0
+            }
+        };
+
+        // Quiz Questions - Diperpanjang dan diperkaya
+        const quizQuestions = [
+            {
+                id: 1,
+                question: "Kapan tepatnya Presiden Soeharto mengundurkan diri, menandai dimulainya Era Reformasi?",
+                options: [
+                    "21 Mei 1998",
+                    "17 Agustus 1998", 
+                    "20 Mei 1998",
+                    "1 Juni 1998"
+                ],
+                correctAnswer: 0,
+                explanation: "Presiden Soeharto mengundurkan diri pada 21 Mei 1998 pukul 09.00 WIB, setelah menjabat selama 32 tahun. Pengunduran diri ini disampaikan dalam pidato singkat di Istana Merdeka di hadapan para wartawan."
+            },
+            {
+                id: 2,
+                question: "Siapa yang menggantikan Soeharto sebagai presiden dan menjadi presiden pertama Era Reformasi?",
+                options: [
+                    "BJ Habibie",
+                    "Abdurrahman Wahid",
+                    "Megawati Soekarnoputri",
+                    "Try Sutrisno"
+                ],
+                correctAnswer: 0,
+                explanation: "Bacharuddin Jusuf Habibie, yang saat itu menjabat sebagai Wakil Presiden, secara konstitusional menggantikan Soeharto berdasarkan Pasal 8 UUD 1945. Habibie memimpin Indonesia dari 21 Mei 1998 hingga 20 Oktober 1999."
+            },
+            {
+                id: 3,
+                question: "Kebijakan penting apa yang dikeluarkan BJ Habibie terkait reformasi politik?",
+                options: [
+                    "Pencabutan Dwi Fungsi ABRI",
+                    "Pembubaran DPR/MPR",
+                    "Penundaan Pemilu hingga 2004",
+                    "Pembentukan Orde Reformasi"
+                ],
+                correctAnswer: 0,
+                explanation: "BJ Habibie mencabut Dwi Fungsi ABRI melalui Ketetapan MPR yang memisahkan peran militer dari politik. Ini mengakhiri doktrin yang memberikan peran ganda kepada militer sebagai kekuatan pertahanan dan kekuatan sosial-politik."
+            },
+            {
+                id: 4,
+                question: "Kapan Indonesia pertama kali menyelenggarakan pemilu demokratis pasca reformasi?",
+                options: [
+                    "7 Juni 1999",
+                    "5 Juli 2004", 
+                    "5 April 1997",
+                    "12 Maret 1998"
+                ],
+                correctAnswer: 0,
+                explanation: "Pemilu 1999 diselenggarakan pada 7 Juni 1999 dan diikuti oleh 48 partai politik. Pemilu ini merupakan pemilu pertama yang benar-benar demokratis setelah 44 tahun, sejak pemilu 1955."
+            },
+            {
+                id: 5,
+                question: "Lembaga anti korupsi KPK dibentuk pada masa pemerintahan siapa?",
+                options: [
+                    "Megawati Soekarnoputri",
+                    "BJ Habibie",
+                    "Abdurrahman Wahid",
+                    "Susilo Bambang Yudhoyono"
+                ],
+                correctAnswer: 0,
+                explanation: "KPK (Komisi Pemberantasan Korupsi) dibentuk pada era Presiden Megawati Soekarnoputri melalui UU No. 30 Tahun 2002 yang ditandatangani pada 27 Desember 2002."
+            },
+            {
+                id: 6,
+                question: "Apa yang dimaksud dengan 'Reformasi 1998'?",
+                options: [
+                    "Gerakan perubahan total sistem pemerintahan Orde Baru",
+                    "Program pembangunan nasional",
+                    "Kebijakan ekonomi pemerintah",
+                    "Reorganisasi militer Indonesia"
+                ],
+                correctAnswer: 0,
+                explanation: "Reformasi 1998 adalah gerakan sosial politik yang menuntut perubahan mendasar dalam sistem pemerintahan Indonesia, terutama penegakan supremasi hukum, demokrasi, dan hak asasi manusia, serta pemberantasan KKN."
+            },
+            {
+                id: 7,
+                question: "Peristiwa Trisakti terjadi pada tanggal berapa?",
+                options: [
+                    "12 Mei 1998",
+                    "21 Mei 1998",
+                    "13 Mei 1998", 
+                    "14 Mei 1998"
+                ],
+                correctAnswer: 0,
+                explanation: "Tragedi Trisakti terjadi pada 12 Mei 1998, ketika aparat keamanan menembak mahasiswa Universitas Trisakti yang sedang melakukan demonstrasi damai. Empat mahasiswa tewas dalam peristiwa ini: Elang Mulya Lesmana, Heri Hertanto, Hafidin Royan, dan Hendriawan Sie."
+            },
+            {
+                id: 8,
+                question: "Apa tujuan utama amandemen UUD 1945 dalam era reformasi?",
+                options: [
+                    "Memperkuat sistem checks and balances",
+                    "Memperpanjang masa jabatan presiden",
+                    "Mengembalikan UUD 1945 seperti semula",
+                    "Menghapuskan lembaga kepresidenan"
+                ],
+                correctAnswer: 0,
+                explanation: "Amandemen UUD 1945 dilakukan dalam empat tahap (1999-2002) bertujuan untuk memperkuat sistem checks and balances, membatasi kekuasaan presiden, memperkuat DPR, dan menegakkan hak asasi manusia."
+            },
+            {
+                id: 9,
+                question: "Program apa yang menjadi ciri khas pemerintahan Joko Widodo?",
+                options: [
+                    "Revolusi Mental",
+                    "Dwi Fungsi ABRI",
+                    "Orde Baru",
+                    "Nasakom"
+                ],
+                correctAnswer: 0,
+                explanation: "Revolusi Mental adalah program unggulan Joko Widodo yang bertujuan membangun karakter bangsa melalui perubahan cara pikir, cara kerja, dan cara hidup yang lebih baik, produktif, dan modern."
+            },
+            {
+                id: 10,
+                question: "Kapan Indonesia pertama kali menyelenggarakan pemilihan presiden secara langsung?",
+                options: [
+                    "5 Juli 2004",
+                    "7 Juni 1999",
+                    "20 Oktober 1999", 
+                    "23 Juli 2001"
+                ],
+                correctAnswer: 0,
+                explanation: "Pemilihan presiden secara langsung pertama kali diselenggarakan pada 5 Juli 2004, yang dimenangkan oleh Susilo Bambang Yudhoyono. Sebelumnya, presiden dipilih oleh MPR."
+            },
+            {
+                id: 11,
+                question: "Apa yang dilakukan Gus Dur terhadap etnis Tionghoa di Indonesia?",
+                options: [
+                    "Mencabut larangan perayaan Imlek",
+                    "Mengusir etnis Tionghoa",
+                    "Melarang bahasa Mandarin",
+                    "Membatasi perekonomian Tionghoa"
+                ],
+                correctAnswer: 0,
+                explanation: "Gus Dur mencabut Inpres No. 14/1967 yang melarang perayaan Imlek dan budaya Tionghoa melalui Keputusan Presiden No. 6/2000. Kebijakan ini mengembalikan hak-hak budaya masyarakat Tionghoa."
+            },
+            {
+                id: 12,
+                question: "Kapan amandemen UUD 1945 pertama kali dilakukan?",
+                options: [
+                    "1999-2002",
+                    "1998-1999",
+                    "2000-2001",
+                    "2002-2003"
+                ],
+                correctAnswer: 0,
+                explanation: "Amandemen UUD 1945 dilakukan dalam empat tahap: Amandemen I (1999), Amandemen II (2000), Amandemen III (2001), dan Amandemen IV (2002). Proses ini mengubah 13 pasal dan menambah 32 pasal baru."
+            },
+            {
+                id: 13,
+                question: "Apa tujuan program Kartu Indonesia Sehat?",
+                options: [
+                    "Akses layanan kesehatan bagi masyarakat miskin",
+                    "Bantuan tunai langsung",
+                    "Subsidi pendidikan",
+                    "Bantuan sembako"
+                ],
+                correctAnswer: 0,
+                explanation: "Kartu Indonesia Sehat (KIS) memberikan akses layanan kesehatan bagi masyarakat kurang mampu di fasilitas kesehatan tingkat pertama (puskesmas) dan rujukan (rumah sakit) dengan pembiayaan dari pemerintah."
+            },
+            {
+                id: 14,
+                question: "Peristiwa penting apa yang terjadi di Aceh pada era SBY?",
+                options: [
+                    "Perjanjian Damai Helsinki",
+                    "Referendum Kemerdekaan",
+                    "Pemberontakan GAM",
+                    "Tsunami 2004"
+                ],
+                correctAnswer: 0,
+                explanation: "Perjanjian Damai Helsinki ditandatangani pada 15 Agustus 2005 antara Pemerintah Indonesia dan Gerakan Aceh Merdeka (GAM), mengakhiri konflik bersenjata yang berlangsung selama 29 tahun di Aceh."
+            },
+            {
+                id: 15,
+                question: "Apa yang dimaksud dengan Otonomi Daerah dalam era reformasi?",
+                options: [
+                    "Penyerahan wewenang pemerintah pusat ke daerah",
+                    "Pemekaran wilayah provinsi",
+                    "Pembentukan negara federal",
+                    "Pemisahan daerah dari NKRI"
+                ],
+                correctAnswer: 0,
+                explanation: "Otonomi Daerah adalah penyerahan wewenang pemerintah oleh pemerintah pusat kepada daerah otonom untuk mengatur dan mengurus urusan pemerintahan dalam sistem Negara Kesatuan Republik Indonesia, diatur dalam UU No. 22 Tahun 1999 yang kemudian direvisi menjadi UU No. 32 Tahun 2004."
+            }
+        ];
+
+        // Data Tokoh Reformasi
+        const reformasiFigures = [
+            {
+                id: 1,
+                name: "BJ Habibie",
+                role: "Presiden ke-3 RI (1998-1999)",
+                description: "Bapak Teknologi Indonesia yang memimpin transisi demokrasi pasca Orde Baru",
+                programs: [
+                    "Reformasi politik dan hukum",
+                    "Kebebasan pers dan berpendapat",
+                    "Pencabutan Dwi Fungsi ABRI",
+                    "Persiapan Pemilu 1999",
+                    "Otonomi daerah melalui UU No. 22/1999"
+                ],
+                achievements: [
+                    "Mengatasi krisis moneter 1998",
+                    "Membuka ruang kebebasan berpendapat",
+                    "Mempersiapkan transisi demokrasi yang damai",
+                    "Mengembalikan stabilitas ekonomi"
+                ]
+            },
+            {
+                id: 2,
+                name: "Abdurrahman Wahid",
+                role: "Presiden ke-4 RI (1999-2001)",
+                description: "Pemimpin Nahdlatul Ulama yang memperjuangkan pluralisme dan demokrasi",
+                programs: [
+                    "Pencabutan Tap MPRS XXV/1966 tentang larangan Marxisme-Leninisme",
+                    "Pengakuan terhadap etnis Tionghoa dan budaya Tionghoa",
+                    "Reformasi militer dan penegakan HAM",
+                    "Pemberantasan KKN",
+                    "Otonomi khusus Aceh"
+                ],
+                achievements: [
+                    "Mengembalikan hak-hak sipil masyarakat Tionghoa",
+                    "Mempromosikan pluralisme dan toleransi beragama",
+                    "Memulai reformasi di tubuh militer",
+                    "Mendorong kebebasan pers"
+                ]
+            },
+            {
+                id: 3,
+                name: "Megawati Soekarnoputri",
+                role: "Presiden ke-5 RI (2001-2004)",
+                description: "Putri proklamator yang melanjutkan konsolidasi demokrasi",
+                programs: [
+                    "Pembentukan Komisi Pemberantasan Korupsi (KPK)",
+                    "Penyelesaian konflik Aceh melalui pendekatan damai",
+                    "Penguatan otonomi daerah",
+                    "Reformasi peradilan dan penegakan hukum",
+                    "Persiapan pemilu langsung 2004"
+                ],
+                achievements: [
+                    "Mewujudkan stabilitas politik pasca transisi",
+                    "Membentuk lembaga anti korupsi yang independen",
+                    "Memulai proses perdamaian di Aceh",
+                    "Mempersiapkan sistem pemilu langsung"
+                ]
+            },
+            {
+                id: 4,
+                name: "Susilo Bambang Yudhoyono",
+                role: "Presiden ke-6 RI (2004-2014)",
+                description: "Presiden pertama hasil pemilihan langsung yang memimpin dua periode",
+                programs: [
+                    "Perdamaian Aceh melalui MoU Helsinki",
+                    "Program Keluarga Harapan (PKH)",
+                    "Pembangunan infrastruktur nasional",
+                    "Reformasi birokrasi dan pelayanan publik",
+                    "Kebijakan ekonomi makro yang stabil"
+                ],
+                achievements: [
+                    "Mencapai perdamaian permanen di Aceh",
+                    "Menjaga stabilitas ekonomi dan politik",
+                    "Meningkatkan investasi asing langsung",
+                    "Memperbaiki citra Indonesia di dunia internasional"
+                ]
+            },
+            {
+                id: 5,
+                name: "Joko Widodo",
+                role: "Presiden ke-7 RI (2014-Sekarang)",
+                description: "Presiden pertama dari kalangan non-militer dan non-elit politik",
+                programs: [
+                    "Revolusi Mental dan pembangunan karakter",
+                    "Pembangunan infrastruktur masif (jalan tol, bandara, pelabuhan)",
+                    "Kartu Indonesia Sehat (KIS) dan Kartu Indonesia Pintar (KIP)",
+                    "Reformasi birokrasi dan simplifikasi perizinan",
+                    "Pemindahan Ibu Kota Negara ke Nusantara"
+                ],
+                achievements: [
+                    "Akselerasi pembangunan infrastruktur di seluruh Indonesia",
+                    "Reformasi sistem kesehatan melalui BPJS",
+                    "Digitalisasi pemerintahan dan layanan publik",
+                    "Peningkatan daya saing ekonomi Indonesia"
+                ]
+            },
+            {
+                id: 6,
+                name: "Amien Rais",
+                role: "Ketua MPR (1999-2004) & Tokoh Reformasi",
+                description: "Tokoh Muhammadiyah yang menjadi motor gerakan reformasi 1998",
+                programs: [
+                    "Penguatan peran MPR sebagai lembaga tertinggi negara",
+                    "Amandemen UUD 1945",
+                    "Pemberantasan KKN secara sistemik",
+                    "Reformasi sistem politik dan kepartaian",
+                    "Pengawasan terhadap eksekutif"
+                ],
+                achievements: [
+                    "Memimpin gerakan moral reformasi 1998",
+                    "Mendorong proses amandemen konstitusi",
+                    "Memperjuangkan transparansi dan akuntabilitas pemerintahan",
+                    "Mengawal transisi demokrasi pasca Orde Baru"
+                ]
+            }
+        ];
+
+        // DOM Elements
+        const screens = {
+            loading: document.getElementById('loadingScreen'),
+            mainMenu: document.getElementById('mainMenu'),
+            quiz: document.getElementById('quizScreen'),
+            quizResults: document.getElementById('quizResultsScreen'),
+            archive: document.getElementById('archiveScreen')
+        };
+
+        // Initialize the game
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeGame();
+        });
+
+        function initializeGame() {
+            simulateLoading();
+            setupEventListeners();
+            updateUI();
+        }
+
+        function simulateLoading() {
+            const loadingProgress = document.getElementById('loadingProgress');
+            const loadingTip = document.getElementById('loadingTip');
+            const tips = [
+                "Menyiapkan arsip reformasi...",
+                "Memuat kebijakan presiden...",
+                "Mengumpulkan dokumen sejarah...",
+                "Menyusun timeline reformasi...",
+                "Hampir selesai..."
+            ];
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    
+                    setTimeout(() => {
+                        showScreen('mainMenu');
+                    }, 500);
+                }
+                
+                loadingProgress.style.width = `${progress}%`;
+                
+                if (progress < 20) {
+                    loadingTip.textContent = tips[0];
+                } else if (progress < 40) {
+                    loadingTip.textContent = tips[1];
+                } else if (progress < 60) {
+                    loadingTip.textContent = tips[2];
+                } else if (progress < 80) {
+                    loadingTip.textContent = tips[3];
+                } else {
+                    loadingTip.textContent = tips[4];
+                }
+            }, 300);
+        }
+
+        function setupEventListeners() {
+            // Main menu buttons
+            document.getElementById('startQuiz').addEventListener('click', startQuiz);
+            document.getElementById('archiveBtn').addEventListener('click', showArchive);
+            
+            // Quiz screen buttons
+            document.getElementById('backFromQuiz').addEventListener('click', () => showScreen('mainMenu'));
+            document.getElementById('skipQuestion').addEventListener('click', skipQuestion);
+            document.getElementById('nextQuestion').addEventListener('click', nextQuestion);
+            
+            // Quiz results buttons
+            document.getElementById('reviewQuiz').addEventListener('click', reviewQuiz);
+            document.getElementById('retryQuiz').addEventListener('click', startQuiz);
+            document.getElementById('continueAfterQuiz').addEventListener('click', () => showScreen('mainMenu'));
+            
+            // Archive screen buttons
+            document.getElementById('backFromArchive').addEventListener('click', () => showScreen('mainMenu'));
+            
+            // Archive navigation
+            const archiveNavSections = document.querySelectorAll('.nav-section');
+            archiveNavSections.forEach(section => {
+                section.addEventListener('click', () => {
+                    const targetSection = section.getAttribute('data-section');
+                    switchArchiveSection(targetSection);
+                });
+            });
+        }
+
+        function showScreen(screenName) {
+            // Hide all screens
+            Object.values(screens).forEach(screen => {
+                screen.classList.add('hidden');
+            });
+            
+            // Show the target screen
+            screens[screenName].classList.remove('hidden');
+            
+            // Update UI based on the screen
+            if (screenName === 'mainMenu') {
+                updateMainMenu();
+            } else if (screenName === 'archive') {
+                updateArchive();
+            }
+        }
+
+        function updateUI() {
+            updateMainMenu();
+        }
+
+        function updateMainMenu() {
+            // Update player info
+            document.getElementById('playerName').textContent = gameState.player.name;
+            document.getElementById('playerLevel').textContent = gameState.player.level;
+            document.getElementById('playerXP').textContent = gameState.player.xp;
+            document.getElementById('completedPeriods').textContent = gameState.player.completedPeriods;
+            document.getElementById('collectedDocuments').textContent = gameState.player.collectedDocuments;
+            document.getElementById('achievementsCount').textContent = gameState.player.achievementsCount;
+        }
+
+        // Fungsi untuk mengacak array
+        function shuffleArray(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        function startQuiz() {
+            // Acak urutan soal
+            const shuffledQuestions = shuffleArray([...quizQuestions]);
+            
+            // Acak urutan opsi jawaban untuk setiap soal
+            const questionsWithShuffledOptions = shuffledQuestions.map(question => {
+                const shuffledOptions = shuffleArray([...question.options]);
+                const correctAnswerIndex = shuffledOptions.indexOf(question.options[question.correctAnswer]);
+                
+                return {
+                    ...question,
+                    options: shuffledOptions,
+                    correctAnswer: correctAnswerIndex
+                };
+            });
+
+            // Reset quiz state
+            gameState.quiz = {
+                currentQuestion: 0,
+                correctAnswers: 0,
+                wrongAnswers: 0,
+                score: 0,
+                questions: questionsWithShuffledOptions.slice(0, 15)
+            };
+            
+            showScreen('quiz');
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const currentQuestion = gameState.quiz.questions[gameState.quiz.currentQuestion];
+            
+            // Update question number and progress
+            document.getElementById('currentQuestionNumber').textContent = gameState.quiz.currentQuestion + 1;
+            document.getElementById('quizProgress').style.width = `${((gameState.quiz.currentQuestion + 1) / gameState.quiz.questions.length) * 100}%`;
+            
+            // Set question text
+            document.getElementById('questionText').textContent = currentQuestion.question;
+            
+            // Load options
+            const optionsGrid = document.getElementById('optionsGrid');
+            optionsGrid.innerHTML = '';
+            
+            currentQuestion.options.forEach((option, index) => {
+                const optionBtn = document.createElement('button');
+                optionBtn.className = 'option-btn';
+                optionBtn.textContent = option;
+                optionBtn.addEventListener('click', () => selectAnswer(index));
+                optionsGrid.appendChild(optionBtn);
+            });
+            
+            // Reset feedback and buttons
+            const quizFeedback = document.getElementById('quizFeedback');
+            quizFeedback.classList.remove('show');
+            
+            document.getElementById('nextQuestion').disabled = true;
+            document.getElementById('skipQuestion').disabled = false;
+        }
+
+        function selectAnswer(selectedIndex) {
+            const currentQuestion = gameState.quiz.questions[gameState.quiz.currentQuestion];
+            const optionButtons = document.querySelectorAll('.option-btn');
+            
+            // Disable all options
+            optionButtons.forEach(btn => {
+                btn.disabled = true;
+            });
+            
+            // Mark correct and incorrect answers
+            optionButtons[currentQuestion.correctAnswer].classList.add('correct');
+            if (selectedIndex !== currentQuestion.correctAnswer) {
+                optionButtons[selectedIndex].classList.add('incorrect');
+                gameState.quiz.wrongAnswers++;
+            } else {
+                gameState.quiz.correctAnswers++;
+                gameState.quiz.score += 10;
+            }
+            
+            // Show feedback
+            const quizFeedback = document.getElementById('quizFeedback');
+            const feedbackContent = document.getElementById('feedbackContent');
+            feedbackContent.innerHTML = `
+                <p><strong>Jawaban yang benar:</strong> ${currentQuestion.options[currentQuestion.correctAnswer]}</p>
+                <p>${currentQuestion.explanation}</p>
+            `;
+            quizFeedback.classList.add('show');
+            
+            // Enable next question button
+            document.getElementById('nextQuestion').disabled = false;
+            document.getElementById('skipQuestion').disabled = true;
+        }
+
+        function skipQuestion() {
+            gameState.quiz.wrongAnswers++;
+            nextQuestion();
+        }
+
+        function nextQuestion() {
+            gameState.quiz.currentQuestion++;
+            
+            if (gameState.quiz.currentQuestion < gameState.quiz.questions.length) {
+                loadQuestion();
+            } else {
+                showQuizResults();
+            }
+        }
+
+        function showQuizResults() {
+            // Update results
+            document.getElementById('correctAnswers').textContent = gameState.quiz.correctAnswers;
+            document.getElementById('wrongAnswers').textContent = gameState.quiz.wrongAnswers;
+            document.getElementById('quizScore').textContent = gameState.quiz.score;
+            
+            // Update performance rating
+            const performanceRating = document.getElementById('performanceRating');
+            const percentage = (gameState.quiz.correctAnswers / gameState.quiz.questions.length) * 100;
+            
+            let rating = '';
+            if (percentage >= 90) {
+                rating = 'Luar Biasa!';
+            } else if (percentage >= 70) {
+                rating = 'Bagus!';
+            } else if (percentage >= 50) {
+                rating = 'Cukup';
+            } else {
+                rating = 'Perlu Belajar Lagi';
+            }
+            
+            performanceRating.textContent = rating;
+            
+            // Update player XP
+            gameState.player.xp += gameState.quiz.score;
+            gameState.player.completedPeriods++;
+            
+            showScreen('quizResults');
+        }
+
+        function reviewQuiz() {
+            showNotification('Fitur ulasan kuis akan segera hadir!', 'info');
+        }
+
+        function showArchive() {
+            showScreen('archive');
+        }
+
+        function updateArchive() {
+            document.getElementById('totalDocuments').textContent = gameState.player.collectedDocuments;
+            loadFiguresArchive();
+        }
+
+        function switchArchiveSection(sectionName) {
+            // Update navigation
+            const navSections = document.querySelectorAll('.nav-section');
+            navSections.forEach(section => {
+                section.classList.remove('active');
+                if (section.getAttribute('data-section') === sectionName) {
+                    section.classList.add('active');
+                }
+            });
+            
+            // Update display sections
+            const archiveSections = document.querySelectorAll('.archive-section');
+            archiveSections.forEach(section => {
+                section.classList.remove('active');
+                if (section.id === `${sectionName}Section`) {
+                    section.classList.add('active');
+                }
+            });
+        }
+
+        function loadFiguresArchive() {
+            const figuresGrid = document.getElementById('figuresGrid');
+            figuresGrid.innerHTML = '';
+            
+            reformasiFigures.forEach(figure => {
+                const figureCard = document.createElement('div');
+                figureCard.className = 'figure-card';
+                
+                figureCard.innerHTML = `
+                    <div class="figure-header">
+                        <div class="figure-avatar">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="figure-info">
+                            <h4>${figure.name}</h4>
+                            <div class="figure-role">${figure.role}</div>
+                        </div>
+                    </div>
+                    <div class="figure-details">
+                        <p>${figure.description}</p>
+                        <h5>Program Utama:</h5>
+                        <ul class="program-list">
+                            ${figure.programs.map(program => `
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>${program}</span>
+                                </li>
+                            `).join('')}
+                        </ul>
+                        <h5>Pencapaian:</h5>
+                        <ul class="program-list">
+                            ${figure.achievements.map(achievement => `
+                                <li>
+                                    <i class="fas fa-star"></i>
+                                    <span>${achievement}</span>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                `;
+                
+                figuresGrid.appendChild(figureCard);
+            });
+        }
+
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            const notificationIcon = document.getElementById('notificationIcon');
+            const notificationText = document.getElementById('notificationText');
+            
+            // Set notification content
+            notificationText.textContent = message;
+            notification.className = `notification ${type} show`;
+            
+            // Set icon based on type
+            let iconClass = '';
+            switch(type) {
+                case 'success':
+                    iconClass = 'fas fa-check-circle';
+                    break;
+                case 'error':
+                    iconClass = 'fas fa-exclamation-circle';
+                    break;
+                case 'warning':
+                    iconClass = 'fas fa-exclamation-triangle';
+                    break;
+                case 'info':
+                default:
+                    iconClass = 'fas fa-info-circle';
+                    break;
+            }
+            notificationIcon.className = iconClass;
+            
+            // Auto hide after 3 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
